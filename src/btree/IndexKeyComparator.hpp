@@ -1,13 +1,13 @@
 #include <cstdint>
+#include "btree/IndexKeySchema.hpp"
 
 namespace dbi {
 
 class IndexKey;
-class IndexKeySchema;
 
 class IndexKeyComparator {
 public:
-   IndexKeyComparator (IndexKeySchema& schema);
+   IndexKeyComparator (const IndexKeySchema& schema);
 
    bool less(const IndexKey& lhs, const IndexKey& rhs) const;
    bool less(const IndexKey& lhs, const char* rhs) const;
@@ -20,7 +20,7 @@ public:
    bool equal(const char* lhs, const char* rhs) const;
 
 private:
-   IndexKeySchema& schema;
+   IndexKeySchema schema;
 };
 
 }

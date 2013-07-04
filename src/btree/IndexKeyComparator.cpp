@@ -6,7 +6,7 @@
 
 namespace dbi {
 
-IndexKeyComparator::IndexKeyComparator(IndexKeySchema& schema)
+IndexKeyComparator::IndexKeyComparator(const IndexKeySchema& schema)
 : schema(schema)
 {
 }

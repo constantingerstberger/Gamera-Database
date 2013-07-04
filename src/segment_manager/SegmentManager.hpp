@@ -13,6 +13,7 @@ class BTreeSegment;
 class FSISegment;
 class Segment;
 class SegmentInventory;
+class RelationSegment;
 
 class SegmentManager {
 public:
@@ -34,6 +35,7 @@ public:
    SPSegment& getSPSegment(const SegmentId id);
    BTreeSegment& getBTreeSegment(const SegmentId id);
    FSISegment& getFSISegment();
+   RelationSegment& getRelationSegment(const SegmentId id);
 
 private:
    BufferManager& bufferManager;

@@ -5,6 +5,7 @@
 #include "SegmentInventory.hpp"
 #include "SPSegment.hpp"
 #include "util/Utility.hpp"
+#include "RelationSegment.hpp"
 #include <cassert>
 #include <iostream>
 
@@ -46,6 +47,8 @@ SegmentId SegmentManager::createSegment(SegmentType segmentType, uint32_t numPag
       segment = unique_ptr<Segment>(new SPSegment(id, *freeSpaceInventory, *segmentInventory, bufferManager));
    } else if (segmentType == SegmentType::BT) {
       segment = unique_ptr<Segment>(new BTreeSegment(id, *segmentInventory, bufferManager));
+   } else if (segmentType == SegmentType::RE) {
+      segment = unique_ptr<Segment>(new RelationSegment(id, *freeSpaceInventory, *segmentInventory, bufferManager, *this));
    }
    growSegment(*segment, numPages);
 
@@ -100,6 +103,19 @@ BTreeSegment& SegmentManager::getBTreeSegment(const SegmentId id)
 FSISegment& SegmentManager::getFSISegment()
 {
    return *freeSpaceInventory;
+}
+
+RelationSegment& SegmentManager::getRelationSegment(const SegmentId id)
+{
+  // Look if segment is already created
+   auto iter = segments.find(id);
+   if(iter != segments.end())
+      return reinterpret_cast<RelationSegment&>(*iter->second);
+
+   // Otherwise create it
+   auto segment = unique_ptr<Segment>(new RelationSegment(id, *freeSpaceInventory, *segmentInventory, bufferManager, *this));
+   auto result = segments.insert(make_pair(id, move(segment)));
+   return reinterpret_cast<RelationSegment&>(*result.first->second);
 }
 
 }

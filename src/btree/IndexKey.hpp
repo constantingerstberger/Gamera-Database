@@ -12,7 +12,7 @@ class IndexKeySchema;
 class IndexKey {
 public:
    IndexKey(std::vector<harriet::Value>&& values);
-   IndexKey(std::vector<harriet::Value*> valueReferences);
+   IndexKey(std::vector<const harriet::Value*> valueReferences);
    IndexKey(const IndexKey&) = delete;
    IndexKey& operator=(const IndexKey&) = delete;
    IndexKey(IndexKey&&);
@@ -26,7 +26,7 @@ public:
 
 private:
    std::vector<harriet::Value> values;
-   std::vector<harriet::Value*> valueReferences;
+   std::vector<const harriet::Value*> valueReferences;
    friend class IndexKeyComparator;
 };
 

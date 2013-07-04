@@ -15,7 +15,7 @@ IndexKey::IndexKey(vector<harriet::Value>&& valuesIn)
       valueReferences[i] = &values[i];
 }
 
-IndexKey::IndexKey(vector<harriet::Value*> valueReferences)
+IndexKey::IndexKey(vector<const harriet::Value*> valueReferences)
 : valueReferences(valueReferences)
 {
 }
