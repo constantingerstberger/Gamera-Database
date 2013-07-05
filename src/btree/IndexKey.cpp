@@ -22,7 +22,7 @@ IndexKey::IndexKey(vector<const harriet::Value*> valueReferences)
 
 IndexKey::IndexKey(IndexKey&& other)
 : values(move(other.values))
-, valueReferences(move(valueReferences))
+, valueReferences(move(other.valueReferences))
 {
 }
 
